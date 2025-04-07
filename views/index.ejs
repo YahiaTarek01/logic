@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./CSS/stylem.css" class="stylechange">
+   <title>B.Tech</title>
+</head>
+<body>
+  <div class="nav" style="display: flex; background-color: black; width: 100%; height: 60px; align-items: center; justify-content: start; margin-bottom: 20px;">
+    <h2 class="logo" style="color: white; margin-left:10px;">B<span style="color: orangered;">.</span>TECH</h2>
+    <input type="text" placeholder="ابحث هنا" style="background-color: rgb(245, 245, 245); border: 0; width: 50%; height: 70%; padding: 15px; font-weight: 800; border-radius: 7px; margin-left: 20%;">
+  </div>
+  <div class="body" style="height: max-content;">
+    <h2>ادخل تفاصيل الشكوى هنا</h2>
+    <input class="name" placeholder="ادخل اسمك" style="background-color: rgb(255, 255, 255); border: 2px black solid; width: 50%; height: 40px; padding: 15px; font-weight: 800; border-radius: 7px;"/>
+    <input class="phone" placeholder="ادخل رقم هاتفك" style="background-color: rgb(255, 255, 255); border: 2px black solid; width: 50%; height: 40px; padding: 15px; font-weight: 800; border-radius: 7px;"/>
+    <input class="address" placeholder="ادخل عنوانك بالكامل" style="background-color: rgb(255, 255, 255); border: 2px black solid; width: 50%; height: 40px; padding: 15px; font-weight: 800; border-radius: 7px;"/>
+    <textarea class="QRCODE" type="text" placeholder="ادخل شكوتك هنا" style="background-color: rgb(255, 255, 255); border: 2px black solid; width: 50%; height: 100px; padding: 15px; font-weight: 800; border-radius: 7px; resize: none;"></textarea>
+    <button class="GGG stop" onclick="GENERATE()">حول النص إلى QRCode</button>
+    <button class="GGG stop" onclick="DOWNLOAD()">تحميل ال QrCode</button>
+    <div class="result">
+      <img class="img" alt="">
+    </div>
+  </div>
+</body>
+<script>
+  function GENERATE() {
+    const URL = `
+    الاسم : ${document.querySelector(".name").value}
+    رقم الهاتف : ${document.querySelector(".phone").value}
+    العنوان : ${document.querySelector(".address").value}
+    الشكوى :-
+    ${document.querySelector(".QRCODE").value}
+
+    `
+    if(URL) {
+      document.querySelector(".img").src = `/QR?text=${encodeURIComponent(URL)}`
+    }
+  }
+  function DOWNLOAD() {
+    let src = document.querySelector(".img").src
+    let link = document.createElement("a")
+    link.href = src
+    link.download = "QRcode"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+</script>
+</html>
